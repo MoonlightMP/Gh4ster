@@ -738,7 +738,51 @@ if [ ! -f /opt/MITMf-master/mitmf.py ]; then
 		echo -e "\e[32m[-] autopwn already installed !\e[0m"
 	fi
 }
-
+######## Install Backdoor-Factory
+function installbackdoorfactory {
+if [ ! -f /opt/BypassAV/the-backdoor-factory/backdoor.py ]; then
+	echo -e "\e[1;31mThis option will install Backdoor-Factory!\e[0m"
+	echo -e "\e[1;31mPatch PE, ELF, Mach-O binaries with shellcode\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ╔╗ ┌─┐┌─┐┬┌─┌┬┐┌─┐┌─┐┬─┐  ╔═╗┌─┐┌─┐┌┬┐┌─┐┬─┐┬ ┬
+║│││└─┐ │ ├─┤│  │  │││││ ┬  ╠╩╗├─┤│  ├┴┐ │││ ││ │├┬┘  ╠╣ ├─┤│   │ │ │├┬┘└┬┘
+╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴ ┴─┴┘└─┘└─┘┴└─  ╚  ┴ ┴└─┘ ┴ └─┘┴└─ ┴ 
+\033[m"
+				sleep 2
+				git clone https://github.com/secretsquirrel/the-backdoor-factory.git /opt/BypassAV/the-backdoor-factory/
+				cd /opt/BypassAV/the-backdoor-factory/
+				./install.sh
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] Backdoor Factory already installed !\e[0m"
+	fi
+}
+######## Install wig
+function installwig {
+	echo -e "\e[1;31mThis option will install wig!\e[0m"
+	echo -e "\e[1;31mWebApp Information Gatherer\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ┬ ┬┬┌─┐  
+║│││└─┐ │ ├─┤│  │  │││││ ┬  │││││ ┬  
+╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  └┴┘┴└─┘  
+				\033[m"
+				sleep 2
+				rm -rf /opt/intelligence-gathering/WebApp/wig/
+				git clone https://github.com/jekyc/wig.git /opt/intelligence-gathering/WebApp/wig/
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 
 ######### Install Hacking Tools
 function hackingtools {
@@ -757,7 +801,7 @@ echo -e "
 \033[36m
 \033[31m\033[m"
 
-select menusel in   "Masscan" "Morpheus" "bettercap" "seclist" "Install All" "Back to Main"; do
+select menusel in   "Masscan" "Morpheus" "bettercap" "seclist" "Fluxion" "Mitmf" "Backdoor-Factory" "Wig" "Install All" "Back to Main"; do
 case $menusel in 
 
  "Masscan")
@@ -789,6 +833,15 @@ case $menusel in
 		installmitmf
 		pause 
 		hackingtools ;;
+  
+ "Backdoor-Factory")
+       installbackdoorfactory
+       pause
+       hackingtools ;;
+ "Wig")
+       installwig
+       pause
+       hackingtools ;;
 
  "Install All")
     installmasscan
@@ -797,6 +850,8 @@ case $menusel in
     installseclist
     installfluxion
     installmitmf
+	installbackdoorfactory
+	installwig
 	echo -e "\e[32m[-] Done Installing hackingtools\e[0m"
 		pause
 		extras ;;
@@ -850,11 +905,11 @@ echo -e "
 ..............:+===~I~=~I...............
 ..............=~~=?:I~::,...............
 .................~~~~:,.................
-........................................
-........................................
+................ MLMP...................
+...........Shadow.<|>.Stream............
 \033[m                                        
           Script by Moonlight
-            Version : 0.0.6 \033[32m$version\033[m
+            Version : 0.0.7 \033[32m$version\033[m
 \033[32m\033[m"
 
 select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
