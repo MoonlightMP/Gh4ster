@@ -382,25 +382,7 @@ function installfixsoundmute {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
-######## Install Change Kali Login Wallpaper
-function installchangelogin {
-	echo -e "\e[1;31mThis option will change Kali Login Wallpaper!\e[0m"
-	echo -e "\e[1;31mPlace wallpaper that you want to make as Kali Login Wallpaper on Desktop\e[0m"
-	echo -e "\e[1;31mAfter that, Rename it to "login-background.png" (.png format)\e[0m"
-	echo -e ""
-	echo -e "Do you want to change it ? (Y/N)"
-			read install
-			if [[ $install = Y || $install = y ]] ; then	
-				echo -e "\033[31m====== Changing Kali Login Wallpaper ======\033[m"
-				sleep 2
-				cd /usr/share/images/desktop-base/
-				mv login-backgroung.{png,png.bak}
-				mv /root/Desktop/login-background.png /usr/share/images/desktop-base/
-				echo -e "\033[32m====== Done Changing ======\033[m"
-			else
-				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
-			fi
-}
+
 ######## Install Firefox
 function installfirefox {
 	echo -e "\e[1;31mThis option will install Firefox!\e[0m"
@@ -435,7 +417,7 @@ function installvlc {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
-######## Install VLC
+######## Install Vmware
 function installvmware {
 	echo -e "\e[1;31mThis option will fix VMare error!\e[0m"
 	echo -e ""
@@ -469,7 +451,7 @@ echo -e "
 ╚═╝└─┘└   ┴ └┴┘┴ ┴┴└─└─┘  └┘   ╚═╝ ┴ └─┘ ┴ └─┘┴ ┴   ╩ └─┘└─┘┴─┘└─┘  
 \033[m              
 \033[31m\033[m"
-select menusel in "VPN" "VPN-BOOK" "VirtualBox" "Bleachbit" "Sopcast" "GoldenDict" "Java" "Pinta" "ibus" "libreoffice" "knotes" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix VMWare" "Fix Device not managed error" "Fix VLC" "Change Kali Login Wallpaper" "Firefox" "Install All" "Back to Main"; do
+select menusel in "VPN" "VPN-BOOK" "VirtualBox" "Bleachbit" "Sopcast" "GoldenDict" "Java" "Pinta" "ibus" "libreoffice" "knotes" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix VMWare" "Fix VLC" "Firefox" "Install All" "Back to Main"; do
 case $menusel in
 		"VPN")
 		installvpn
@@ -558,20 +540,12 @@ case $menusel in
 		pause
 		softwaresandystemtools ;;
 
-	"Fix Device not managed error")
-		installfixdevice
-		pause
-		softwaresandystemtools ;;
-
 	"Fix VLC")
 		installvlc
 		pause
 		softwaresandystemtools ;;
 
-	"Change Kali Login Wallpaper")
-		installchangelogin
-		pause
-		softwaresandystemtools ;;
+	
 	"Install All")
 		echo -e "\e[36mJava is install seperately choose it from the Software and System Tools menu\e[0m"
 		installvirtualbox
@@ -589,8 +563,7 @@ case $menusel in
 		installarchivemanager
 		installgdebi
 		installbittorrent
-		installfixdevice
-		installchangelogin
+		
 		echo -e "\e[32m[-] Done Installing Software and System Tools\e[0m"
 		pause
 		softwaresandystemtools ;;
@@ -609,6 +582,86 @@ esac
 break
 
 done
+}
+
+
+
+
+######## Install masscan
+function installmasscan {
+	echo -e "\e[1;31mThis option will install masscan!\e[0m"
+	echo -e "\e[1;31mTCP port scanner, spews SYN packets asynchronously, scanning entire Internet in under 5 minutes.\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing masscan ======\033[m"
+				sleep 2
+				rm -rf /opt/intelligence-gathering/Network/masscan/
+				git clone https://github.com/robertdavidgraham/masscan.git /opt/intelligence-gathering/Network/masscan/
+				cd /opt/intelligence-gathering/Network/masscan/
+				apt-get -y install git gcc make libpcap-dev
+				make
+				cd bin/
+				cp masscan /usr/bin/
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######### Install Hacking Tools
+function hackingtools {
+clear
+echo -e "
+\033[31m\033[m
+\033[36m                
+  ____.  .____         ___________           .__          
+ |_   |  |   _|        \__    ___/___   ____ |  |   ______
+   |  |  |  |     ______ |    | /  _ \ /  _ \|  |  /  ___/
+   |  |  |  |    /_____/ |    |(  <_> |  <_> )  |__\___ \ 
+  _|  |  |  |_           |____| \____/ \____/|____/____  >
+ |____|  |____|                                        \/ 
+
+
+\033[36m
+\033[31m\033[m"
+
+select menusel in   "Masscan" "Install All" "Back to Main"; do
+case $menusel in 
+
+
+
+"Masscan")
+		installmasscan
+		pause 
+		hackingtools ;;
+
+
+   "Install All")
+
+	echo -e "\e[32m[-] Done Installing hackingtools\e[0m"
+		pause
+		extras ;;
+		
+
+	"Back to Main")
+		clear
+		mainmenu ;;
+		
+	*)
+		screwup
+		extras ;;
+	
+		
+esac
+
+break
+
+done
+}
+
+#### pause function
+function pause(){
+   read -sn 1 -p "Press any key to continue..."
 }
 ########################################################
 ##             Main Menu Section
@@ -642,7 +695,7 @@ echo -e "
 ........................................
 \033[m                                        
           Script by Moonlight
-            Version : 0.0.3 \033[32m$version\033[m
+            Version : 0.0.4 \033[32m$version\033[m
 \033[32m\033[m"
 
 select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
