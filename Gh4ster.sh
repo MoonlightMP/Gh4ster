@@ -584,9 +584,6 @@ break
 done
 }
 
-
-
-
 ######## Install masscan
 function installmasscan {
 	echo -e "\e[1;31mThis option will install masscan!\e[0m"
@@ -595,7 +592,11 @@ function installmasscan {
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
 			if [[ $install = Y || $install = y ]] ; then	
-				echo -e "\033[31m====== Installing masscan ======\033[m"
+				echo -e "\033[31m 
+╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ╔╦╗┌─┐┌─┐┌─┐┌─┐┌─┐┌┐┌
+║│││└─┐ │ ├─┤│  │  │││││ ┬  ║║║├─┤└─┐└─┐│  ├─┤│││
+╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  ╩ ╩┴ ┴└─┘└─┘└─┘┴ ┴┘└┘                                                                                    
+				\033[m"
 				sleep 2
 				rm -rf /opt/intelligence-gathering/Network/masscan/
 				git clone https://github.com/robertdavidgraham/masscan.git /opt/intelligence-gathering/Network/masscan/
@@ -619,7 +620,11 @@ echo -e ""
 
 read install
 			if [[ $install = Y || $install = y ]] ; then	
-				echo -e "\033[31m====== Installing Morpheus ======\033[m"
+				echo -e "\033[31m
+╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ╔╦╗┌─┐┬─┐┌─┐┬ ┬┌─┐┬ ┬┌─┐  
+║│││└─┐ │ ├─┤│  │  │││││ ┬  ║║║│ │├┬┘├─┘├─┤├┤ │ │└─┐  
+╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  ╩ ╩└─┘┴└─┴  ┴ ┴└─┘└─┘└─┘  
+				\033[m"
 				sleep 2
 				git clone https://github.com/r00t-3xp10it/morpheus /usr/share/morpheus
 			else
@@ -629,6 +634,99 @@ read install
 		echo -e "\e[32m[-] Morpheus already installed !\e[0m"
 	fi
 }
+######## Install bettercap
+function installbettercap {
+	echo -e "\e[1;31mThis option will install bettercap!\e[0m"
+	echo -e "\e[1;31mA complete, modular, portable and easily extensible MITM framework.\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ┌┐ ┌─┐┌┬┐┌┬┐┌─┐┬─┐┌─┐┌─┐┌─┐
+║│││└─┐ │ ├─┤│  │  │││││ ┬  ├┴┐├┤  │  │ ├┤ ├┬┘│  ├─┤├─┘
+╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  └─┘└─┘ ┴  ┴ └─┘┴└─└─┘┴ ┴┴  
+				\033[m"
+				sleep 2
+				rm -rf /opt/Sniffing-Spoofing/bettercap/
+				git clone https://github.com/evilsocket/bettercap /opt/Sniffing-Spoofing/bettercap/
+				apt-get install ruby-dev libpcap-dev
+				cd /opt/Sniffing-Spoofing/bettercap/
+				gem build bettercap.gemspec
+				sudo gem install bettercap*.gem
+				gem update bettercap
+				echo -e "\e[32m[-] Done Installing!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install seclist
+function installseclist {
+	echo -e "\e[1;31mThis option will install seclist!\e[0m"
+	echo -e "\e[1;31m  \e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing seclist ======\033[m"
+				sleep 2
+				rm -rf /opt/intelligence-gathering/seclist/
+				git clone https://github.com/danielmiessler/SecLists.git /opt/intelligence-gathering/seclist/
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install Fluxion
+function installfluxion {
+if [ ! -f /opt/wireless/fluxion ]; then
+	echo -e "\e[1;31mThis option will install Fluxion!\e[0m"
+	echo -e "\e[1;31mEvil Twin wireless attacking method\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Fluxion ======\033[m"
+				sleep 2
+				git clone https://github.com/deltaxflux/fluxion.git /opt/wireless/fluxion
+				cd /opt/wireless/fluxion
+				chmod +x Installer.sh
+				./Installer.sh
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] Fluxion already installed !\e[0m"
+	fi
+}
+
+
+######## Install mitmf
+function installmitmf {
+if [ ! -f /opt/MITMf-master/mitmf.py ]; then
+	echo -e "\e[1;31mThis option will install mitmf!\e[0m"
+	echo -e "\e[1;31mFramework for Man-In-The-Middle attacks\e[0m"
+	echo -e "\e[1;31mDefeat HTST to get HTTPS password\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing mitmf ======\033[m"
+				sleep 2
+				rm -rf /opt/Sniffing-Spoofing/mitmf/
+				git clone https://github.com/byt3bl33d3r/MITMf.git /opt/Sniffing-Spoofing/mitmf/
+				cd  /opt/Sniffing-Spoofing/mitmf/
+				./setup.sh
+				apt-get -y install python-dev python-setuptools libpcap0.8-dev libnetfilter-queue-dev
+				pip install --upgrade -r requirements.txt
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] autopwn already installed !\e[0m"
+	fi
+}
+
+
 ######### Install Hacking Tools
 function hackingtools {
 clear
@@ -646,24 +744,46 @@ echo -e "
 \033[36m
 \033[31m\033[m"
 
-select menusel in   "Masscan" "Morpheus" "Install All" "Back to Main"; do
+select menusel in   "Masscan" "Morpheus" "bettercap" "seclist" "Install All" "Back to Main"; do
 case $menusel in 
 
-
-
-"Masscan")
+ "Masscan")
 		installmasscan
 		pause 
 		hackingtools ;;
 
-  "Morpheus")
+"Morpheus")
 		installmorpheus
 		pause
 		hackingtools ;;
 
-   "Install All")
+"bettercap")
+		installbettercap
+		pause
+		hackingtools ;;
+
+ "seclist")
+		installseclist
+		pause
+		hackingtools ;;
+
+ "Fluxion")
+		installfluxion
+		pause
+		hackingtools ;;
+
+ "mitmf")
+		installmitmf
+		pause 
+		hackingtools ;;
+
+ "Install All")
     installmasscan
-    installmorpheus 
+    installmorpheus
+    installbettercap 
+    installseclist
+    installfluxion
+    installmitmf
 	echo -e "\e[32m[-] Done Installing hackingtools\e[0m"
 		pause
 		extras ;;
@@ -721,7 +841,7 @@ echo -e "
 ........................................
 \033[m                                        
           Script by Moonlight
-            Version : 0.0.3 \033[32m$version\033[m
+            Version : 0.0.5 \033[32m$version\033[m
 \033[32m\033[m"
 
 select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
