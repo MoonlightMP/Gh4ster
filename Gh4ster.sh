@@ -650,6 +650,7 @@ function installbettercap {
 				sleep 2
 				rm -rf /opt/Sniffing-Spoofing/bettercap/
 				git clone https://github.com/evilsocket/bettercap /opt/Sniffing-Spoofing/bettercap/
+				apt-get install bettercap
 				apt-get install ruby-dev libpcap-dev
 				cd /opt/Sniffing-Spoofing/bettercap/
 				gem build bettercap.gemspec
@@ -668,7 +669,11 @@ function installseclist {
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
 			if [[ $install = Y || $install = y ]] ; then	
-				echo -e "\033[31m====== Installing seclist ======\033[m"
+				echo -e "\033[31m
+╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ╔═╗┌─┐┌─┐┬  ┬┌─┐┌┬┐
+║│││└─┐ │ ├─┤│  │  │││││ ┬  ╚═╗├┤ │  │  │└─┐ │ 
+╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  ╚═╝└─┘└─┘┴─┘┴└─┘ ┴ 
+				\033[m"
 				sleep 2
 				rm -rf /opt/intelligence-gathering/seclist/
 				git clone https://github.com/danielmiessler/SecLists.git /opt/intelligence-gathering/seclist/
@@ -685,7 +690,11 @@ if [ ! -f /opt/wireless/fluxion ]; then
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
 			if [[ $install = Y || $install = y ]] ; then	
-				echo -e "\033[31m====== Installing Fluxion ======\033[m"
+				echo -e "\033[31m
+╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ╔═╗┬  ┬ ┬─┐ ┬┬┌─┐┌┐┌
+║│││└─┐ │ ├─┤│  │  │││││ ┬  ╠╣ │  │ │┌┴┬┘││ ││││
+╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  ╚  ┴─┘└─┘┴ └─┴└─┘┘└┘
+				\033[m"
 				sleep 2
 				git clone https://github.com/deltaxflux/fluxion.git /opt/wireless/fluxion
 				cd /opt/wireless/fluxion
@@ -710,7 +719,11 @@ if [ ! -f /opt/MITMf-master/mitmf.py ]; then
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
 			if [[ $install = Y || $install = y ]] ; then	
-				echo -e "\033[31m====== Installing mitmf ======\033[m"
+				echo -e "\033[31m
+╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ╔╦╗┬┌┬┐┌┬┐┌─┐
+║│││└─┐ │ ├─┤│  │  │││││ ┬  ║║║│ │ │││├┤ 
+╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  ╩ ╩┴ ┴ ┴ ┴└  
+				\033[m"
 				sleep 2
 				rm -rf /opt/Sniffing-Spoofing/mitmf/
 				git clone https://github.com/byt3bl33d3r/MITMf.git /opt/Sniffing-Spoofing/mitmf/
@@ -841,7 +854,7 @@ echo -e "
 ........................................
 \033[m                                        
           Script by Moonlight
-            Version : 0.0.5 \033[32m$version\033[m
+            Version : 0.0.6 \033[32m$version\033[m
 \033[32m\033[m"
 
 select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
