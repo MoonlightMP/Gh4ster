@@ -65,6 +65,551 @@ break
 
 done
 }
+
+######## Install VPN
+function installvpn {
+	echo -e "\e[1;31mThis option will install VPN!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing VPN ======\033[m"
+				sleep 2
+				apt-get -y install network-manager-openvpn
+				apt-get -y install network-manager-openvpn-gnome
+				apt-get -y install network-manager-pptp
+				apt-get -y install network-manager-pptp-gnome
+				apt-get -y install network-manager-strongswan
+				apt-get -y install network-manager-vpnc
+				apt-get -y install network-manager-vpnc-gnome
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install Dirs3arch
+function installDirs3arch {
+if [ ! -f /opt/dirs3arch.py ]; then
+	echo -e "\e[1;31mThis option will install dirs3arch!\e[0m"
+	echo -e "\e[1;31mHTTP(S) directory/file brute forcer\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing dirs3arch ======\033[m"
+				sleep 2
+				git clone https://github.com/maurosoria/dirs3arch.git /opt/dirs3arch-master/
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] Dirs3arch already installed !\e[0m"
+	fi
+}
+######### Install VirutalBox
+function installvirtualbox {
+
+	echo -e "\e[1;31mThis option will install virtualbox!\e[0m"
+	echo -e "\e[1;31mOf course, Your source.list correct!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Virtualbox ======\033[m"
+				sleep 2
+				apt-get update && apt-get install -y linux-headers-$(uname -r)
+				apt-get install virtualbox
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+#### Bleachbit Installation
+function installbleachbit {
+	echo -e "\e[1;31mThis option will install Bleachbit!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+	read install
+	if [[ $install = Y || $install = y ]] ; then
+		echo -e "\e[31m[+] Installing Bleachbit now!\e[0m"
+		apt-get -y install bleachbit 
+		echo -e "\e[32m[-] Done Installing Bleachbit!\e[0m"		
+	else
+		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+	fi	
+}
+#### Installation GoldenDict
+function installGoldendict {
+	echo -e "\e[1;31mThis option will install GoldenDict!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+	read install
+	if [[ $install = Y || $install = y ]] ; then
+		echo -e "\e[31m[+] Installing GoldenDict now!\e[0m"
+		apt-get -y install goldendict 
+		echo -e "\e[32m[-] Done Installing goldendict!\e[0m"		
+	else
+		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+	fi	
+}
+######## Install Pinta
+function installpinta {
+	echo "This will install Pinta (image editor). Do you want to install it ? (Y/N)"
+	read install
+	if [[ $install = Y || $install = y ]] ; then
+		echo -e "\e[31m[+] Installing Pinta now!\e[0m"
+		apt-get -y install pinta
+		echo -e "\e[32m[-] Done Installing Pinta!\e[0m"		
+	else
+		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+	fi
+	
+	
+}
+######## Install ibus
+function installibus {
+	echo "This will install ibus. Do you want to install it ? (Y/N)"
+	read install
+	if [[ $install = Y || $install = y ]] ; then
+		echo -e "\e[31m[+] Installing ibus now!\e[0m"
+		apt-get -y install ibus && apt-get -y install ibus-unikey
+		echo -e "\e[32m[-] Done Installing ibus!\e[0m"		
+	else
+		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+	fi
+	
+	
+}
+######## Install libreoffice
+function installlibreoffice {
+	echo "This will install libreoffice. Do you want to install it ? (Y/N)"
+	read install
+	if [[ $install = Y || $install = y ]] ; then
+		echo -e "\e[31m[+] Installing libreoffice now!\e[0m"
+		apt-get -y install libreoffice
+		echo -e "\e[32m[-] Done Installing libreoffice!\e[0m"		
+	else
+		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+	fi
+	
+	
+}
+######## Install knotes
+function installknotes {
+	echo "This will install knotes. Do you want to install it ? (Y/N)"
+	read install
+	if [[ $install = Y || $install = y ]] ; then
+		echo -e "\e[31m[+] Installing knotes now!\e[0m"
+		apt-get -y install knotes
+		echo -e "\e[32m[-] Done Installing knotes!\e[0m"		
+	else
+		echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+	fi
+	
+	
+}
+# JAVA JDK Update
+#################################################################################
+######## Install Java version 8
+function installjava {
+	echo -e "\e[1;31mThis option will install java!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Java ======\033[m"
+				sleep 2
+				echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list
+				echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
+				apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+				apt-get update
+				apt-get -y install oracle-java8-installer
+				echo -e "\033[32m====== Done Installing ======\033[m"
+				echo -e "\033[32mTo remove java version 1.8\033[m"
+				echo -e "\033[32mapt-get --purge remove oracle-java8-installer\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install Sopcast
+function installsopcast {
+	echo -e "\e[1;31mThis option will install sopcast!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Sopcast ======\033[m"
+				sleep 2
+				wget https://launchpad.net/~jason-scheunemann/+archive/ppa/+files/sp-auth_3.2.6~ppa1~precise3_i386.deb
+				dpkg -i sp-auth_3.2.6~ppa1~precise3_*.deb
+				apt-get -f install
+				wget https://launchpad.net/~jason-scheunemann/+archive/ppa/+files/sopcast-player_0.8.5~ppa~precise1_i386.deb
+				dpkg -i sopcast-player_0.8.5~ppa~precise1_*.deb
+				apt-get -f install
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install Veil-Framework
+function installveil {
+if [ ! -f /opt/BypassAV/Veil-Evasion/Veil-Evasion.py ]; then
+	echo -e "\e[1;31mThis option will install Veil-Evasion!\e[0m"
+	echo -e "\e[1;31mHow to use Veil-Evasopm\e[0m"
+	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=8Z4gBKE6i-c\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Veil-Evasion ======\033[m"
+				sleep 2
+				git clone https://github.com/Veil-Framework/Veil-Evasion.git /opt/BypassAV/Veil-Evasion/
+				cd /opt/BypassAV/Veil-Evasion/setup
+				./setup.sh -s
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] Veil-Evasion already installed !\e[0m"
+	fi
+}
+######## Install VPN-BOOK
+function installvpnbook {
+if [ ! -f /root/Desktop/vpnbook.sh ]; then
+	echo -e "\e[1;31mThis option will install VPN-BOOK!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing VPN-BOOK ======\033[m"
+				sleep 2
+				cd /root/Desktop
+				wget https://github.com/Top-Hat-Sec/thsosrtl/blob/master/VeePeeNee/VeePeeNee.sh
+				mv VeePeeNee.sh vpnbook.sh
+				chmod a+x vpnbook.sh
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] VPN-BOOK already installed !\e[0m"
+	fi
+}
+
+######## Install Tor Browser
+function installtorbrowser {
+if [ ! -f /root/tor-browser_en-US/Browser/start_tor_browser ]; then
+	echo -e "\e[1;31mThis option will install Tor Browser!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Tor Browser ======\033[m"
+				sleep 2
+				cd /root/Desktop
+				wget https://www.torproject.org/dist/torbrowser/4.5.3/tor-browser-linux32-4.5.3_en-US.tar.xz
+				tar -xf tor-browser-linux32-4.5.3_en-US.tar.xz
+				cd /root/Desktop/tor-browser_en-US/Browser/
+				mv start-tor-browser start-tor-browser.txt
+				sed -i 's/`id -u`" -eq 0/`id -u`" -eq 1/g' start-tor-browser.txt
+				mv start-tor-browser.txt start-tor-browser
+				cd ..
+				ls -ld
+				chown -R root:root .
+				ls -ld
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] Tor Browser already installed !\e[0m"
+	fi
+}
+
+######## Install Archive-Manager
+function installarchivemanager {
+	echo -e "\e[1;31mThis option will install Archive Manager!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Archive Manager ======\033[m"
+				sleep 2
+				apt-get -y install unrar unace rar unrar p7zip zip unzip p7zip-full p7zip-rar file-roller
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install Gdebi
+function installgdebi {
+	echo -e "\e[1;31mThis option will install Gdebi!\e[0m"
+	echo -e "\e[1;31mgdebi lets you install local deb packages resolving and installing its dependencies. apt does the same, but only for remote (http, ftp) located packages.!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Gdebi ======\033[m"
+				sleep 2
+				apt-get -y install gdebi &>/dev/nul
+				echo -e "\033[32m====== Done Installing Gdebi ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install bittorrent client
+function installbittorrent {
+	echo -e "\e[1;31mThis option will install bittorrent!\e[0m"
+	echo -e "\e[1;31mThis is a transitional dummy package to ensure clean upgrades from old releases (the package deluge-torrent is replaced by deluge)!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing bittorrent ======\033[m"
+				sleep 2
+				apt-get -y install deluge-torrent &>/dev/null
+				echo -e "\033[32m====== Done Installing bittorrent ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install Fix Sound Mute
+function installfixsoundmute {
+	echo -e "\e[1;31mThis option will fix sound mute on Kali Linux on boot!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install alsa-utils to fix it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Fixing sound mute ======\033[m"
+				sleep 2
+				apt-get -y install alsa-utils &>/dev/null
+				echo -e "\033[32m====== Done Installing alsa-utils ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install Change Kali Login Wallpaper
+function installchangelogin {
+	echo -e "\e[1;31mThis option will change Kali Login Wallpaper!\e[0m"
+	echo -e "\e[1;31mPlace wallpaper that you want to make as Kali Login Wallpaper on Desktop\e[0m"
+	echo -e "\e[1;31mAfter that, Rename it to "login-background.png" (.png format)\e[0m"
+	echo -e ""
+	echo -e "Do you want to change it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Changing Kali Login Wallpaper ======\033[m"
+				sleep 2
+				cd /usr/share/images/desktop-base/
+				mv login-backgroung.{png,png.bak}
+				mv /root/Desktop/login-background.png /usr/share/images/desktop-base/
+				echo -e "\033[32m====== Done Changing ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install Firefox
+function installfirefox {
+	echo -e "\e[1;31mThis option will install Firefox!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Firefox ======\033[m"
+				sleep 2
+				apt-get -y remove iceweasel
+				echo -e deb http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt all main | tee -a /etc/apt/sources.list > /dev/null
+				apt-key adv –recv-keys –keyserver keyserver.ubuntu.com C1289A29
+				apt-get update
+				apt-get --force-yes install firefox-mozilla-build				
+				echo -e "\033[32m====== Done Installing ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install VLC
+function installvlc {
+	echo -e "\e[1;31mThis option will fix VLC error!\e[0m"
+	echo -e ""
+	echo -e "Do you want to fix it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Fixing VLC ======\033[m"
+				sleep 2
+				sed -i 's/geteuid/getppid/g' /usr/bin/vlc				
+				echo -e "\033[32m====== Done Fixing ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install VLC
+function installvmware {
+	echo -e "\e[1;31mThis option will fix VMare error!\e[0m"
+	echo -e ""
+	echo -e "Do you want to fix it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Fixing VMWare ======\033[m"
+				sleep 2
+				cd /usr/lib/vmware/modules/source
+ 				tar -xvf vmnet.tar			
+				mv vmnet-only/netif.c vmnet-only/netif.txt
+				sed -i 's/`dev = alloc_netdev(sizeof *netIf, deviceName, VNetNetIfSetup)" -eq dev = alloc_netdev(sizeof *netIf, deviceName, NET_NAME_UNKNOWN, VNetNetIfSetup)/g' vmnet-only/netif.txt
+				mv vmnet-only/netif.txt vmnet-only/netif.c	
+				tar -cvf vmnet.tar vmnet-only/
+				rm -rf vmnet-only/
+				echo -e "\033[32m====== Done Fixing ======\033[m"
+				echo -e "\033[32m====== If it doesn't work, please view video below ======\033[m"				
+				echo -e "\033[32m====== https://www.youtube.com/watch?v=qH3OSBAMNA4 ======\033[m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Software and System Tools menu
+function softwaresandystemtools {
+clear
+echo -e "
+\033[31m\033[m
+\033[31m
+╔═╗┌─┐┌─┐┌┬┐┬ ┬┌─┐┬─┐┌─┐   ┬   ╔═╗┬ ┬┌─┐┌┬┐┌─┐┌┬┐  ╔╦╗┌─┐┌─┐┬  ┌─┐
+╚═╗│ │├┤  │ │││├─┤├┬┘├┤   ┌┼─  ╚═╗└┬┘└─┐ │ ├┤ │││   ║ │ ││ ││  └─┐
+╚═╝└─┘└   ┴ └┴┘┴ ┴┴└─└─┘  └┘   ╚═╝ ┴ └─┘ ┴ └─┘┴ ┴   ╩ └─┘└─┘┴─┘└─┘  
+\033[m              
+\033[31m\033[m"
+select menusel in "VPN" "VPN-BOOK" "VirtualBox" "Bleachbit" "Sopcast" "GoldenDict" "Java" "Pinta" "ibus" "libreoffice" "knotes" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix VMWare" "Fix Device not managed error" "Fix VLC" "Change Kali Login Wallpaper" "Firefox" "Install All" "Back to Main"; do
+case $menusel in
+		"VPN")
+		installvpn
+		pause
+		softwaresandystemtools ;;
+	"VPN-BOOK")
+		installvpnbook
+		pause
+		softwaresandystemtools ;;
+		"VirtualBox")
+		installvirtualbox
+		pause
+		softwaresandystemtools ;;
+
+	"Fix VMWare")
+		installvmware
+		pause
+		softwaresandystemtools ;;
+		
+	"Fix VLC")
+		installvlc
+		pause
+		softwaresandystemtools ;;
+
+	"Sopcast")
+		installsopcast
+		pause
+		softwaresandystemtools ;;
+
+	"Firefox")
+		installfirefox
+		pause
+		softwaresandystemtools ;;
+		
+	"Bleachbit")
+		installbleachbit
+		pause
+		softwaresandystemtools ;;
+	
+	"GoldenDict")
+		installGoldendict
+		pause
+		softwaresandystemtools ;;
+		
+		
+	"Java")
+		installjava
+		pause
+		softwaresandystemtools ;;
+		
+	"Pinta")
+		installpinta
+		pause
+		softwaresandystemtools ;;
+	
+	"ibus")
+		installibus
+		pause
+		softwaresandystemtools ;;
+	"libreoffice")
+		installlibreoffice
+		pause
+		softwareandsystemtools ;;
+	"knotes")
+		installknotes
+		pause
+		softwaresandystemtools ;;
+	"Tor Browser")
+		installtorbrowser
+		pause
+		softwaresandystemtools ;;
+	"Fix Sound Mute")
+		installfixsoundmute
+		pause
+		softwaresandystemtools ;;
+	"Archive-Manager")
+		installarchivemanager
+		pause
+		softwaresandystemtools ;;
+	"Gdebi")
+		installgdebi
+		pause
+		softwaresandystemtools ;;
+	"bittorrent client")
+		installbittorrent
+		pause
+		softwaresandystemtools ;;
+
+	"Fix Device not managed error")
+		installfixdevice
+		pause
+		softwaresandystemtools ;;
+
+	"Fix VLC")
+		installvlc
+		pause
+		softwaresandystemtools ;;
+
+	"Change Kali Login Wallpaper")
+		installchangelogin
+		pause
+		softwaresandystemtools ;;
+	"Install All")
+		echo -e "\e[36mJava is install seperately choose it from the Software and System Tools menu\e[0m"
+		installvirtualbox
+		installbleachbit
+		installGoldendict
+		installpinta
+		installgnometweaktool
+		installibus
+		installlibreoffice
+		installknotes
+		installvpnbook
+		installvpn
+		installtorbrowser
+		installfixsoundmute
+		installarchivemanager
+		installgdebi
+		installbittorrent
+		installfixdevice
+		installchangelogin
+		echo -e "\e[32m[-] Done Installing Software and System Tools\e[0m"
+		pause
+		softwaresandystemtools ;;
+
+	"Back to Main")
+		clear
+		mainmenu ;;
+		
+	*)
+		screwup
+		softwaresandystemtools ;;
+	
+		
+esac
+
+break
+
+done
+}
 ########################################################
 ##             Main Menu Section
 ########################################################
@@ -97,7 +642,7 @@ echo -e "
 ........................................
 \033[m                                        
           Script by Moonlight
-            Version : 0.0.1 \033[32m$version\033[m
+            Version : 0.0.3 \033[32m$version\033[m
 \033[32m\033[m"
 
 select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
