@@ -608,6 +608,27 @@ function installmasscan {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+
+######## Install Morpheus  
+function installmorpheus {
+if [ ! -f /usr/share/morpheus ]; then
+echo -e "\e[1;31mThis option will install Morpheus!\e[0m"
+echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+
+
+read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing Morpheus ======\033[m"
+				sleep 2
+				git clone https://github.com/r00t-3xp10it/morpheus /usr/share/morpheus
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] Morpheus already installed !\e[0m"
+	fi
+}
 ######### Install Hacking Tools
 function hackingtools {
 clear
@@ -625,7 +646,7 @@ echo -e "
 \033[36m
 \033[31m\033[m"
 
-select menusel in   "Masscan" "Install All" "Back to Main"; do
+select menusel in   "Masscan" "Morpheus" "Install All" "Back to Main"; do
 case $menusel in 
 
 
@@ -635,9 +656,14 @@ case $menusel in
 		pause 
 		hackingtools ;;
 
+  "Morpheus")
+		installmorpheus
+		pause
+		hackingtools ;;
 
    "Install All")
-
+    installmasscan
+    installmorpheus 
 	echo -e "\e[32m[-] Done Installing hackingtools\e[0m"
 		pause
 		extras ;;
@@ -695,7 +721,7 @@ echo -e "
 ........................................
 \033[m                                        
           Script by Moonlight
-            Version : 0.0.4 \033[32m$version\033[m
+            Version : 0.0.3 \033[32m$version\033[m
 \033[32m\033[m"
 
 select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
