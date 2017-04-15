@@ -5,6 +5,18 @@ DEFAULT_ROUTE=$(ip route show default | awk '/default/ {print $3}')
 IFACE=$(ip route show | awk '(NR == 2) {print $3}')
 JAVA_VERSION=`java -version 2>&1 |awk 'NR==1{ gsub(/"/,""); print $3 }'`
 MYIP=$(ip route show | awk '(NR == 2) {print $9}')
+
+Colors() {
+Escape="\033";
+  white="${Escape}[0m";
+  RedF="${Escape}[31m";
+  GreenF="${Escape}[32m";
+  YellowF="${Escape}[33m";
+  BlueF="${Escape}[34m";
+  CyanF="${Escape}[36m";
+Reset="${Escape}[0m";
+}
+
 ######## Update Kali
 function updatekali {
 clear
@@ -58,6 +70,106 @@ case $menusel in
 	*)
 		screwup
 		updatekali ;;
+
+esac
+
+break
+
+done
+}
+
+function Desktopmanager {
+clear
+echo -e "
+\033[31m\033[m
+     
+  ╔═╗┬ ┬┌─┐┌┐┌┌─┐┌─┐  ╦╔═┌─┐┬  ┬  ╔╦╗┌─┐┌─┐┬┌─┌┬┐┌─┐┌─┐  ╔╦╗┌─┐┌┐┌┌─┐┌─┐┌─┐┬─┐
+  ║  ├─┤├─┤││││ ┬├┤   ╠╩╗├─┤│  │   ║║├┤ └─┐├┴┐ │ │ │├─┘  ║║║├─┤│││├─┤│ ┬├┤ ├┬┘
+  ╚═╝┴ ┴┴ ┴┘└┘└─┘└─┘  ╩ ╩┴ ┴┴─┘┴  ═╩╝└─┘└─┘┴ ┴ ┴ └─┘┴    ╩ ╩┴ ┴┘└┘┴ ┴└─┘└─┘┴└─
+\033[31m\033[m"
+select menusel in "XFCE Desktop" "KDE Desktop" "LXDE Desktop" "Conky" "Back to Main"; do
+case $menusel in
+        "XFCE Desktop")
+                
+		echo -e "\033[32m
+                                                                 
+                      _____        _____        ______   
+_____      _____ ____|\    \   ___|\    \   ___|\     \  
+\    \    /    /|    | \    \ /    /\    \ |     \     \ 
+ \    \  /    / |    |______/|    |  |    ||     ,_____/|
+  \____\/____/  |    |----'\ |    |  |____||     \--'\_|/
+  /    /\    \  |    |_____/ |    |   ____ |     /___/|  
+ /    /  \    \ |    |       |    |  |    ||     \____|\ 
+/____/ /\ \____\|____|       |\ ___\/    /||____ '     /|
+|    |/  \|    ||    |       | |   /____/ ||    /_____/ |
+|____|    |____||____|        \|___|    | /|____|     | /
+  \(        )/    )/            \( |____|/   \( |_____|/ 
+   '        '     '              '   )/       '    )/    
+
+		\033[m"
+		apt-get install kali-defaults kali-root-login desktop-base xfce4 xfce4-places-plugin xfce4-goodies
+		echo xfce4-session > /root/.xsession
+		echo -e "\033[32mDone Installing\033[m"
+		pause
+		clear ;;	
+	"KDE Desktop")
+
+		echo -e "\033[32m
+                                          
+ ____    ____       _____        ______   
+|    |  |    |  ___|\    \   ___|\     \  
+|    |  |    | |    |\    \ |     \     \ 
+|    | /    // |    | |    ||     ,_____/|
+|    |/ _ _//  |    | |    ||     \--'\_|/
+|    |\    \'  |    | |    ||     /___/|  
+|    | \    \  |    | |    ||     \____|\ 
+|____|  \____\ |____|/____/||____ '     /|
+|    |   |    ||    /    | ||    /_____/ |
+|____|   |____||____|____|/ |____|     | /
+  \(       )/    \(    )/     \( |_____|/ 
+   '       '      '    '       '    )/    
+                                    ' 
+                                                         
+		\033[m"
+		apt-get install kali-defaults kali-root-login desktop-base kde-plasma-desktop
+		echo -e "\033[32mDone Installing\033[m"
+		pause
+		clear ;;
+	"LXDE Desktop")
+		echo -e "\033[32m
+                                                        
+ ____                             _____        ______   
+|    |       _____      _____ ___|\    \   ___|\     \  
+|    |       \    \    /    /|    |\    \ |     \     \ 
+|    |        \    \  /    / |    | |    ||     ,_____/|
+|    |  ____   \____\/____/  |    | |    ||     \--'\_|/
+|    | |    |  /    /\    \  |    | |    ||     /___/|  
+|    | |    | /    /  \    \ |    | |    ||     \____|\ 
+|____|/____/|/____/ /\ \____\|____|/____/||____ '     /|
+|    |     |||    |/  \|    ||    /    | ||    /_____/ |
+|____|_____|/|____|    |____||____|____|/ |____|     | /
+  \(    )/     \(        )/    \(    )/     \( |_____|/ 
+   '    '       '        '      '    '       '    )/   
+
+		\033[m"
+		apt-get install lxde-core lxde kali-defaults kali-root-login desktop-base
+		echo -e "\033[32mDone Installing\033[m"
+		pause
+		clear ;;
+	"Conky")
+		chmod a+x conky.sh
+		./conky.sh
+		pause
+		clear ;;
+		
+		
+	"Back to Main")
+		clear
+		mainmenu ;;
+		
+	*)
+		screwup
+		Desktopmanager ;;
 
 esac
 
@@ -252,8 +364,6 @@ function installsopcast {
 function installveil {
 if [ ! -f /opt/BypassAV/Veil-Evasion/Veil-Evasion.py ]; then
 	echo -e "\e[1;31mThis option will install Veil-Evasion!\e[0m"
-	echo -e "\e[1;31mHow to use Veil-Evasopm\e[0m"
-	echo -e "\e[1;32mhttps://www.youtube.com/watch?v=8Z4gBKE6i-c\e[0m"
 	echo -e ""
 	echo -e "Do you want to install it ? (Y/N)"
 			read install
@@ -319,6 +429,41 @@ if [ ! -f /root/tor-browser_en-US/Browser/start_tor_browser ]; then
 	else
 		echo -e "\e[32m[-] Tor Browser already installed !\e[0m"
 	fi
+}
+
+# Install Chromium
+function installchromium {
+  getggrep="/etc/apt/sources.list.d/google.list"
+  showlogo
+  echo -e " Preparing To Install ${b}Chromium${enda}" && echo
+  echo -e " ${bu}Chromium is an open-source browser project that aims to build
+ a safer, faster, and more stable way for all Internet
+ users to experience the web. This site contains design
+ documents, architecture overviews, testing information,
+ and more to help you learn to build and work with the
+ Chromium source code.
+ Read more about it here: ${b}http://www.chromium.org/Home${enda}"
+  echo && echo -en " ${y}Press Enter To Continue${endc}"
+  read input
+  echo -e " Installing ${b}Chromium${enda}"
+  if [[ -d $getggrep ]]; then
+    echo -e " ${b}Google Linux Repository${enda} status: ${g}Installed${endc}"
+    xterm -e apt-get install chromium
+    xterm -e wget http://sourceforge.net/projects/kaais/files/Custom_Files/chromium -O /usr/bin/chromium
+  else
+    echo -e " ${b}Google Linux Repository${enda} status: ${r}Not Found${endc}"
+    echo -e " Installing ${b}Google Linux Repository${enda}"
+      xterm -e "wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -"
+      xterm -e sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+      xterm -e apt-get update
+    echo -e " ${b}Google Linux Repository${enda} is now installed"
+    xterm -e apt-get install chromium
+    xterm -e wget http://sourceforge.net/projects/kaais/files/Custom_Files/chromium -O /usr/bin/chromium
+  fi
+  echo -e " ${b}Chromium${enda} Was Successfully Installed"
+  echo && echo -e " Run Chromium From The ${b}Internet${enda} Menu"
+  echo && echo -en " ${y}Press Enter To Return To Menu${endc}"
+  read input
 }
 
 ######## Install Archive-Manager
@@ -402,6 +547,39 @@ function installfirefox {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+
+# Install Google Chrome
+function installchrome {
+  getggrep="/etc/apt/sources.list.d/google.list"
+  showlogo
+  echo -e " Preparing To Install ${b}Chrome${enda}" && echo
+  echo -e " ${bu}Google Chrome is a freeware web browser developed by Google.
+ It used the WebKit layout engine until version 27 and,
+ with the exception of its iOS releases, from version 28
+ and beyond uses the WebKit fork Blink.
+ Read more about it here: ${b}https://www.google.com/chrome/${enda}"
+  echo && echo -en " ${y}Press Enter To Continue${endc}"
+  read input
+  echo -e " Installing ${b}Chrome${enda}"
+  if [[ -d $getggrep ]]; then
+    echo -e " ${b}Google Linux Repository${enda} status: ${g}Installed${endc}"
+    xterm -e apt-get -y install google-chrome-stable
+    xterm -e wget http://sourceforge.net/projects/kaais/files/Custom_Files/google-chrome -O /opt/google/chrome/google-chrome
+  else
+    echo -e " ${b}Google Linux Repository${enda} status: ${r}Not Found${endc}"
+    echo -e " Installing ${b}Google Linux Repository${enda}"
+      xterm -e "wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -"
+      xterm -e sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+      xterm -e apt-get update
+    echo -e " ${b}Google Linux Repository${enda} is now installed"
+    xterm -e apt-get -y install google-chrome-stable
+    xterm -e wget http://sourceforge.net/projects/kaais/files/Custom_Files/google-chrome -O /opt/google/chrome/google-chrome
+  fi
+  echo -e " ${b}Chrome${enda} Was Successfully Installed"
+  echo && echo -e " Run Chrome From The ${b}Internet${enda} Menu"
+  echo && echo -en " ${y}Press Enter To Return To Menu${endc}"
+  read input
+}
 ######## Install VLC
 function installvlc {
 	echo -e "\e[1;31mThis option will fix VLC error!\e[0m"
@@ -417,6 +595,47 @@ function installvlc {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+
+# Install Youtube Downloader
+function installytbdwn {
+  showlogo
+  echo -e " Preparing To Install ${b}Youtube Downloader${enda}" && echo
+  echo -e " ${bu}Simple Youtube Video Downloader, used from Terminal on
+ any Linux distribution. Frequently updated.
+ Read more about it here: ${b}https://yt-dl.org/${enda}"
+  echo && echo -en " ${y}Press Enter To Continue${endc}"
+  read input
+  echo -e " Installing ${b}Youtube Downloader${enda}"
+  xterm -e wget https://yt-dl.org/latest/youtube-dl -O /usr/local/bin/youtube-dl
+  echo -e " ${b}Youtube Downloader${enda} Was Successfully Installed"
+  xterm -e chmod a+x /usr/local/bin/youtube-dl
+  echo -e " All ${b}Youtube Downloader${enda} Files Were Flaged For Execute Successfully"
+  echo && echo -e " Run Youtube Downloader From The Terminal: ${b}youtube-dl \"http://youtube.com/watch?v=XXXXXXX${enda}\" "
+  echo && echo -en " ${y}Press Enter To Return To Menu${endc}"
+  read input
+}
+
+# Install Skype
+function installskype {
+  showlogo
+  echo -e " Preparing To Install ${b}Skype${enda}" && echo
+  echo -e " ${bu}Skype is a freemium voice-over-IP service and
+ instant messaging client that is currently developed
+ by the Microsoft Skype Division. The name originally
+ derived from \"sky\" and \"peer\".
+ Read more about it here: ${b}http://www.skype.com/${enda}"
+  echo && echo -en " ${y}Press Enter To Continue${endc}"
+  read input
+  echo -e " Installing ${b}Skype${enda}"
+  xterm -e wget -P /root/ http://download.skype.com/linux/skype-debian_4.3.0.37-1_i386.deb
+  xterm -e dpkg -i /root/skype-debian_4.3.0.37-1_i386.deb
+  xterm -e rm /root/skype-debian_4.3.0.37-1_i386.deb 
+  echo -e " ${b}Skype${enda} Was Successfully Installed"
+  echo && echo -e " Run Skype From The ${b}Internet${enda} Menu"
+  echo && echo -en " ${y}Press Enter To Return To Menu${endc}"
+  read input
+}
+
 ######## Install Vmware
 function installvmware {
 	echo -e "\e[1;31mThis option will fix VMare error!\e[0m"
@@ -434,8 +653,6 @@ function installvmware {
 				tar -cvf vmnet.tar vmnet-only/
 				rm -rf vmnet-only/
 				echo -e "\033[32m====== Done Fixing ======\033[m"
-				echo -e "\033[32m====== If it doesn't work, please view video below ======\033[m"				
-				echo -e "\033[32m====== https://www.youtube.com/watch?v=qH3OSBAMNA4 ======\033[m"
 			else
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
@@ -451,17 +668,19 @@ echo -e "
 ╚═╝└─┘└   ┴ └┴┘┴ ┴┴└─└─┘  └┘   ╚═╝ ┴ └─┘ ┴ └─┘┴ ┴   ╩ └─┘└─┘┴─┘└─┘  
 \033[m              
 \033[31m\033[m"
-select menusel in "VPN" "VPN-BOOK" "VirtualBox" "Bleachbit" "Sopcast" "GoldenDict" "Java" "Pinta" "ibus" "libreoffice" "knotes" "Tor Browser" "Fix Sound Mute" "Archive-Manager" "Gdebi" "bittorrent client" "Fix VMWare" "Fix VLC" "Firefox" "Install All" "Back to Main"; do
+select menusel in "VPN" "VPN-BOOK" "VirtualBox" "Bleachbit" "Sopcast" "GoldenDict" "Java" "Pinta" "ibus" "libreoffice" "knotes" "Tor Browser" "Fix Sound Mute" "Chromium" "Archive-Manager" "Gdebi" "bittorrent client" "Fix VMWare" "YouTube Downloader" "Install Skype" "Fix VLC" "Firefox" "Google Chrome" "Install All" "Back to Main"; do
 case $menusel in
 		"VPN")
 		installvpn
 		pause
 		softwaresandystemtools ;;
+
 	"VPN-BOOK")
 		installvpnbook
 		pause
 		softwaresandystemtools ;;
-		"VirtualBox")
+
+	"VirtualBox")
 		installvirtualbox
 		pause
 		softwaresandystemtools ;;
@@ -486,6 +705,11 @@ case $menusel in
 		pause
 		softwaresandystemtools ;;
 		
+	"Google Chrome")
+	    installchrome
+	    pause
+	    softwaresandystemtools ;;
+
 	"Bleachbit")
 		installbleachbit
 		pause
@@ -511,30 +735,42 @@ case $menusel in
 		installibus
 		pause
 		softwaresandystemtools ;;
+
 	"libreoffice")
 		installlibreoffice
 		pause
 		softwareandsystemtools ;;
+
 	"knotes")
 		installknotes
 		pause
 		softwaresandystemtools ;;
+
 	"Tor Browser")
 		installtorbrowser
 		pause
 		softwaresandystemtools ;;
+
 	"Fix Sound Mute")
 		installfixsoundmute
 		pause
 		softwaresandystemtools ;;
+
+	"Chromium")
+		installchromium
+		pause
+		softwaresandystemtools ;; 
+
 	"Archive-Manager")
 		installarchivemanager
 		pause
 		softwaresandystemtools ;;
+
 	"Gdebi")
 		installgdebi
 		pause
 		softwaresandystemtools ;;
+
 	"bittorrent client")
 		installbittorrent
 		pause
@@ -545,7 +781,16 @@ case $menusel in
 		pause
 		softwaresandystemtools ;;
 
-	
+	"YouTube Downloader")
+	    installytbdwn
+	    pause
+	    softwaresandystemtools ;;	
+
+	"Install Skype")
+	    installskype
+	    pause
+	    softwaresandystemtools ;;    
+
 	"Install All")
 		echo -e "\e[36mJava is install seperately choose it from the Software and System Tools menu\e[0m"
 		installvirtualbox
@@ -563,7 +808,11 @@ case $menusel in
 		installarchivemanager
 		installgdebi
 		installbittorrent
-		
+		installchrome
+		installchromium
+		installytbdwn
+        installskype
+		install
 		echo -e "\e[32m[-] Done Installing Software and System Tools\e[0m"
 		pause
 		softwaresandystemtools ;;
@@ -783,6 +1032,68 @@ function installwig {
 				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
 			fi
 }
+######### Install Spade
+function installspade {
+	echo -e "\e[1;31mThis option will install Spade!\e[0m"
+	echo -e "\e[1;31mmake android apk backdoor\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ╔═╗┌─┐┌─┐┌┬┐┌─┐
+║│││└─┐ │ ├─┤│  │  │││││ ┬  ╚═╗├─┘├─┤ ││├┤ 
+╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  ╚═╝┴  ┴ ┴─┴┘└─┘
+                         \033[m"
+            sleep 2
+git clone https://github.com/suraj-root/spade.git /opt/spade/
+cd spade/
+chmod +x spade.py
+else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######### Install Nettool
+function installnettool {
+	echo -e "\e[1;31mThis option will install Nettool!\e[0m"
+	echo -e "\e[1;31mAfter install type in new terminal : gnome-nettool!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ╔╗╔┌─┐┌┬┐┌┬┐┌─┐┌─┐┬  
+║│││└─┐ │ ├─┤│  │  │││││ ┬  ║║║├┤  │  │ │ ││ ││  
+╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  ╝╚╝└─┘ ┴  ┴ └─┘└─┘┴─
+                         \033[m"
+                        
+            sleep 2
+            apt-get install gnome-nettool
+            cd gnome-nettool  
+           else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+
+# Install thad0ctor's BT5 Toolkit
+function installthad0ctor {
+  showlogo
+  echo -e " Preparing To Install ${b}thad0ctor's${enda}" && echo
+  echo -e " ${bu}In short it is the ultimate tool for those looking to
+ make a wide variety of word lists for dictionary
+ based and other brute force attacks.
+ Read more about it here: ${b}https://sourceforge.net/projects/thad0ctorstools/${enda}"
+  echo && echo -en " ${y}Press Enter To Continue${endc}"
+  read input
+  echo -e " Installing ${b}thad0ctor's${enda}"
+  xterm -e wget -P /root/ http://freefr.dl.sourceforge.net/project/thad0ctorstools/backtrack%205%20toolkit/backtrack%205%20toolkit%20v1.4/thad0ctors%20Backtrack%205%20toolkit%20v1.4.zip
+  xterm -e unzip /root/thad0ctors\ Backtrack\ 5\ toolkit\ v1.4.zip
+  xterm -e rm /root/thad0ctors\ Backtrack\ 5\ toolkit\ v1.4.zip
+  echo -e " ${b}thad0ctor's${enda} Was Successfully Installed"
+  echo && echo -e " Run thad0ctor's From The Terminal: ${b}./thad0ctors\ Backtrack\ 5\ toolkit/LAUNCH_TOOLKIT.sh${enda}"
+  echo && echo -en " ${y}Press Enter To Return To Menu${endc}"
+  read input
+}
 
 ######### Install Hacking Tools
 function hackingtools {
@@ -801,7 +1112,7 @@ echo -e "
 \033[36m
 \033[31m\033[m"
 
-select menusel in   "Masscan" "Morpheus" "bettercap" "seclist" "Fluxion" "Mitmf" "Backdoor-Factory" "Wig" "Install All" "Back to Main"; do
+select menusel in   "Masscan" "Morpheus" "bettercap" "seclist" "Fluxion" "Mitmf" "Backdoor-Factory" "Wig" "Spade" "Nettool" "Thad0ctor" "Install All" "Back to Main"; do
 case $menusel in 
 
  "Masscan")
@@ -838,8 +1149,24 @@ case $menusel in
        installbackdoorfactory
        pause
        hackingtools ;;
+
  "Wig")
        installwig
+       pause
+       hackingtools ;;
+
+"Spade")
+       installspade
+       pause
+       hackingtools ;;
+
+"Nettool")
+       installnettool
+       pause
+       hackingtools ;;       
+
+"Thad0ctor")
+       installthad0ctor
        pause
        hackingtools ;;
 
@@ -852,6 +1179,9 @@ case $menusel in
     installmitmf
 	installbackdoorfactory
 	installwig
+	installspade
+	installnettool
+	installthad0ctor
 	echo -e "\e[32m[-] Done Installing hackingtools\e[0m"
 		pause
 		extras ;;
@@ -909,15 +1239,19 @@ echo -e "
 ...........Shadow.<|>.Stream............
 \033[m                                        
           Script by Moonlight
-            Version : 0.0.7 \033[32m$version\033[m
+            Version : 0.0.8 \033[32m$version\033[m
 \033[32m\033[m"
 
-select menusel in "Update Kali" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
+select menusel in "Update Kali" "Desktop Manager" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
 case $menusel in
 	"Update Kali")
 		updatekali
 		clear ;;
 	
+	"Desktop Manager")
+        Desktopmanager
+        clear ;;
+
 	"Software and System Tools")
 		softwaresandystemtools
 		clear ;;
