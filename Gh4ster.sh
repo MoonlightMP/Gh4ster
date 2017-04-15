@@ -598,7 +598,7 @@ function installvlc {
 
 # Install Youtube Downloader
 function installytbdwn {
-  showlogo
+  #showlogo
   echo -e " Preparing To Install ${b}Youtube Downloader${enda}" && echo
   echo -e " ${bu}Simple Youtube Video Downloader, used from Terminal on
  any Linux distribution. Frequently updated.
@@ -617,7 +617,7 @@ function installytbdwn {
 
 # Install Skype
 function installskype {
-  showlogo
+  #showlogo
   echo -e " Preparing To Install ${b}Skype${enda}" && echo
   echo -e " ${bu}Skype is a freemium voice-over-IP service and
  instant messaging client that is currently developed
@@ -1239,7 +1239,7 @@ echo -e "
 ...........Shadow.<|>.Stream............
 \033[m                                        
           Script by Moonlight
-            Version : 0.0.8 \033[32m$version\033[m
+            Version : 0.0.7 \033[32m$version\033[m
 \033[32m\033[m"
 
 select menusel in "Update Kali" "Desktop Manager" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
