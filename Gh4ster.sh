@@ -6,16 +6,25 @@ IFACE=$(ip route show | awk '(NR == 2) {print $3}')
 JAVA_VERSION=`java -version 2>&1 |awk 'NR==1{ gsub(/"/,""); print $3 }'`
 MYIP=$(ip route show | awk '(NR == 2) {print $9}')
 
-Colors() {
-Escape="\033";
-  white="${Escape}[0m";
-  RedF="${Escape}[31m";
-  GreenF="${Escape}[32m";
-  YellowF="${Escape}[33m";
-  BlueF="${Escape}[34m";
-  CyanF="${Escape}[36m";
-Reset="${Escape}[0m";
-}
+#Colors() {
+#Escape="\033";
+#  white="${Escape}[0m";
+#  RedF="${Escape}[31m";
+#  GreenF="${Escape}[32m";
+#  YellowF="${Escape}[33m";
+#  BlueF="${Escape}[34m";
+#  CyanF="${Escape}[36m";
+#Reset="${Escape}[0m";
+#}
+# color-echo.sh:
+black='\E[30;47m'
+red='\E[31;47m'
+green='\E[32;47m'
+yellow='\E[33;47m'
+blue='\E[34;47m'
+magenta='\E[35;47m'
+cyan='\E[36;47m'
+white='\E[37;47m'
 
 ######## Update Kali
 function updatekali {
@@ -59,7 +68,11 @@ case $menusel in
 	
 	"Update and Clean Kali")
 		clear
-		echo -e "\033[32mUpdating and Cleaning Kali\033[m"
+		echo -e "\033[32m
+╦ ╦┌─┐┌┬┐┌─┐┌┬┐┬┌┐┌┌─┐  ┌─┐┌┐┌┌┬┐  ╔═╗┬  ┌─┐┌─┐┌┐┌┬┌┐┌┌─┐  ╦╔═┌─┐┬  ┬
+║ ║├─┘ ││├─┤ │ │││││ ┬  ├─┤│││ ││  ║  │  ├┤ ├─┤││││││││ ┬  ╠╩╗├─┤│  │
+╚═╝┴  ─┴┘┴ ┴ ┴ ┴┘└┘└─┘  ┴ ┴┘└┘─┴┘  ╚═╝┴─┘└─┘┴ ┴┘└┘┴┘└┘└─┘  ╩ ╩┴ ┴┴─┘┴
+		\033[m"
 		apt-get update && apt-get -y dist-upgrade && apt-get autoremove -y && apt-get -y autoclean
 		echo -e "\033[32mDone updating and cleaning kali\033[m" ;;
 		
@@ -832,6 +845,201 @@ break
 
 done
 }
+######## Update metasploit
+function updatemetasploit {
+if [ ! -f /opt/dirs3arch.py ]; then
+	echo -e "\e[1;31mThis option will update latest metasploit version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╦ ╦┌─┐┌┬┐┌─┐┌┬┐┬┌┐┌┌─┐  ┌┬┐┌─┐┌┬┐┌─┐┌─┐┌─┐┬  ┌─┐┬┌┬┐
+║ ║├─┘ ││├─┤ │ │││││ ┬  │││├┤  │ ├─┤└─┐├─┘│  │ ││ │ 
+╚═╝┴  ─┴┘┴ ┴ ┴ ┴┘└┘└─┘  ┴ ┴└─┘ ┴ ┴ ┴└─┘┴  ┴─┘└─┘┴ ┴ 
+				\033[m"
+				sleep 2
+				git clone https://github.com/rapid7/metasploit-framework.git /opt/exploitation/metasploit/
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] Metasploit already updated !\e[0m"
+	fi
+}
+######## Update Social Engineering Toolkit
+function updateSET {
+	echo -e "\e[1;31mThis option will update latest SET version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╦ ╦┌─┐┌┬┐┌─┐┌┬┐┬┌┐┌┌─┐  ╔═╗╔═╗╔╦╗
+║ ║├─┘ ││├─┤ │ │││││ ┬  ╚═╗║╣  ║ 
+╚═╝┴  ─┴┘┴ ┴ ┴ ┴┘└┘└─┘  ╚═╝╚═╝ ╩ 
+\033[m"
+				sleep 2
+				rm -rf /opt/exploitation/set/
+				git clone https://github.com/trustedsec/social-engineer-toolkit.git /opt/exploitation/set/
+				mv /usr/share/set/config/ /opt/exploitation/set/
+				echo -e "\e[32m[-] Done!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Update Beef
+function updateBeef {
+	echo -e "\e[1;31mThis option will update latest Beef version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╦ ╦┌─┐┌┬┐┌─┐┌┬┐┬┌┐┌┌─┐  ╔╗ ┌─┐┌─┐┌─┐
+║ ║├─┘ ││├─┤ │ │││││ ┬  ╠╩╗├┤ ├┤ ├┤ 
+╚═╝┴  ─┴┘┴ ┴ ┴ ┴┘└┘└─┘  ╚═╝└─┘└─┘└  
+				\033[m"
+				sleep 2
+				git clone https://github.com/beefproject/beef.git /opt/exploitation/beef/
+				echo -e "\e[32m[-] Done!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Update Veil-Evasion
+function updateVeil {
+	echo -e "\e[1;31mThis option will update latest Veil version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+ ____ ___            .___       __  .__                 ____   ____     .__.__            ___________                    .__               
+|    |   \______   __| _/____ _/  |_|__| ____    ____   \   \ /   /____ |__|  |           \_   _____/__  _______    _____|__| ____   ____  
+|    |   /\____ \ / __ |\__  \    __\  |/    \  / ___\   \   Y   // __ \|  |  |    ______  |    __)_\  \/ /\__  \  /  ___/  |/  _ \ /    \ 
+|    |  / |  |_> > /_/ | / __ \|  | |  |   |  \/ /_/  >   \     /\  ___/|  |  |__ /_____/  |         \   /  / __ \_\___ \|  (  <_> )   |  |
+|______/  |   __/\____ |(____  /__| |__|___|  /\___  /     \___/  \___  >__|____/         /_______  / \_/  (____  /____  >__|\____/|___|  /
+          |__|        \/     \/             \//_____/                 \/                          \/            \/     \/               \/ 
+
+				\033[m"
+				sleep 2
+				cd /opt/BypassAV/
+				rm -rf Veil-Evasion/
+				git clone https://github.com/Veil-Framework/Veil-Evasion.git /opt/BypassAV/Veil-Evasion/
+				echo -e "\e[32m[-] Done!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Install system-config-samba
+function installsystem-config-samba {
+	echo -e "\e[1;31mThis option will install system-config-samba!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m====== Installing system-config-samba ======\033[m"
+				sleep 2
+				apt-get install -y build-essential gfortran checkinstall python-all-dev cdbs debhelper quilt intltool python-central rarian-compat pkg-config gnome-doc-utils samba python-libuser libuser1 python-glade2
+				mkdir ~/tmp
+				cd ~/tmp
+				wget https://launchpad.net/ubuntu/+archive/primary/+files/system-config-samba_1.2.63.orig.tar.gz
+				tar xvf system-config-samba_1.2.63.orig.tar.gz
+				wget https://launchpad.net/ubuntu/+archive/primary/+files/system-config-samba_1.2.63-0ubuntu5.diff.gz
+				gunzip system-config-samba_1.2.63-0ubuntu5.diff.gz
+				patch -p0 < system-config-samba_1.2.63-0ubuntu5.diff
+				cd system-config-samba-1.2.63/
+				dpkg-buildpackage -uc -us
+				sudo dpkg -i ../system-config-samba_1.2.63-0ubuntu5_all.deb
+				sudo touch /etc/libuser.conf
+				gksu system-config-samba
+				echo -e "\e[32m[-] Done!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Update Backdoor Factory
+function updateBackdoorFactory {
+	echo -e "\e[1;31mThis option will update latest Backdoor Factory version!\e[0m"
+	echo -e ""
+	echo -e "Do you want to update it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╦ ╦┌─┐┌┬┐┌─┐┌┬┐┬┌┐┌┌─┐  ╔╗ ┌─┐┌─┐┬┌─┌┬┐┌─┐┌─┐┬─┐  ╔═╗┌─┐┌─┐┌┬┐┌─┐┬─┐┬ ┬
+║ ║├─┘ ││├─┤ │ │││││ ┬  ╠╩╗├─┤│  ├┴┐ │││ ││ │├┬┘  ╠╣ ├─┤│   │ │ │├┬┘└┬┘
+╚═╝┴  ─┴┘┴ ┴ ┴ ┴┘└┘└─┘  ╚═╝┴ ┴└─┘┴ ┴─┴┘└─┘└─┘┴└─  ╚  ┴ ┴└─┘ ┴ └─┘┴└─ ┴ 
+				\033[m"
+				sleep 2
+				rm -rf /opt/BypassAV/the-backdoor-factory/
+				git clone https://github.com/secretsquirrel/the-backdoor-factory.git /opt/BypassAV/the-backdoor-factory/
+				./install.sh
+				echo -e "\e[32m[-] Done!\e[0m"
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+######## Update tools to latest version
+function updatetools {
+clear
+echo -e "
+\033[31m\033[m
+
+╦ ╦┌─┐┌┬┐┌─┐┌┬┐┌─┐  ┌┬┐┌─┐┌─┐┬  ┌─┐ 
+║ ║├─┘ ││├─┤ │ ├┤    │ │ ││ ││  └─┐ 
+╚═╝┴  ─┴┘┴ ┴ ┴ └─┘   ┴ └─┘└─┘┴─┘└─┘ 
+
+\033[31m\033[m"
+select menusel in "Metasploit" "Beef" "Veil-Evasion" "Social Engineering Toolkit" "Backdoor Factory" "Update All" "Back to Main"; do
+case $menusel in
+	"Metasploit")
+		updatemetasploit
+		pause
+		updatetools ;;
+	"Beef")
+		updateBeef
+		pause
+		updatetools ;;
+	"Veil-Evasion")
+		updateVeil
+		pause
+		updatetools ;;
+	"Social Engineering Toolkit")
+		updateSET
+		pause
+		updatetools ;;
+	"Backdoor Factory")
+		updateBackdoorFactory
+		pause
+		updatetools ;;
+
+	"Update All")
+		updatemetasploit
+		updateBeef
+		updateVeil
+		updateSET
+		updateBackdoorFactory
+		echo -e "\e[32m[-] Done Updating\e[0m"
+		pause
+		updatetools ;;
+
+	"Back to Main")
+		clear
+		mainmenu ;;
+		
+	*)
+		screwup
+		updatetools ;;
+	
+		
+esac
+
+break
+
+done
+}
+
 
 ######## Install masscan
 function installmasscan {
@@ -1077,7 +1285,7 @@ function installnettool {
 
 # Install thad0ctor's BT5 Toolkit
 function installthad0ctor {
-  showlogo
+  #showlogo
   echo -e " Preparing To Install ${b}thad0ctor's${enda}" && echo
   echo -e " ${bu}In short it is the ultimate tool for those looking to
  make a wide variety of word lists for dictionary
@@ -1094,6 +1302,216 @@ function installthad0ctor {
   echo && echo -en " ${y}Press Enter To Return To Menu${endc}"
   read input
 }
+######## Install Hackpack
+function installhackpack {
+	echo -e "\e[1;31mThis option will install Hackpack!\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then
+			echo -e "\033[31m
+  ___ ___                __                         __    
+ /   |   \_____    ____ |  | _____________    ____ |  | __
+/    ~    \__  \ _/ ___\|  |/ /\____ \__  \ _/ ___\|  |/ /
+\    Y    // __ \   \___|    < |  |_> > __ \   \___|    < 
+ \___|_  /(____  /\___  >__|_ \|   __(____  /\___  >__|_ |
+       \/      \/     \/     \/|__|       \/     \/     \/
+                         \033[m"                        
+            sleep 2	
+
+            firefox http://www.lincoder.com/wp-content/uploads/2016/01/hackpack.tar
+            chmod 777 install.sh
+            /install.sh
+
+            else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
+
+######## Install Atscan
+function installatscan {
+	echo -e "\e[1;31mThis option will install Atscan!\e[0m"
+	echo -e "\e[1;31mAdvance Dork Search\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then
+echo -e "\033[31m
+╔═╗╔╦╗╔═╗╔═╗╔═╗╔╗╔
+╠═╣ ║ ╚═╗║  ╠═╣║║║
+╩ ╩ ╩ ╚═╝╚═╝╩ ╩╝╚╝
+                 
+ \033[m"                        
+            sleep 2	
+
+            git clone https://github.com/AlisamTechnology/ATSCAN.git /opt/ATSCAN/
+
+            else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}	
+######## Install OpenDoor
+function installopendoor {
+	echo -e "\e[1;31mThis option will install OpenDoor!\e[0m"
+	echo -e "\e[1;31mOWASP Directory Access\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then
+echo -e "\033[31m
+╔═╗┌─┐┌─┐┌┐┌╔╦╗┌─┐┌─┐┬─┐
+║ ║├─┘├┤ │││ ║║│ ││ │├┬┘
+╚═╝┴  └─┘┘└┘═╩╝└─┘└─┘┴└─
+                 
+ \033[m"        
+         sleep 2                
+       git clone  https://github.com/stanislav-web/OpenDoor.git  /opt/OpenDoor/
+       sudo pip install -r requirements.txt
+  else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}	
+
+######## Install Whitewidow
+function installwhitewidow {
+	echo -e "\e[1;31mThis option will install Whitewidow!\e[0m"
+	echo -e "\e[1;31mscan a website for sql injection\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then
+echo -e "\033[31m
+╦ ╦┬ ┬┬┌┬┐┌─┐┬ ┬┬┌┬┐┌─┐┬ ┬
+║║║├─┤│ │ ├┤ ││││ │││ ││││
+╚╩╝┴ ┴┴ ┴ └─┘└┴┘┴─┴┘└─┘└┴┘                 
+ \033[m"        
+         sleep 2                
+       git clone https://github.com/WhitewidowScanner/whitewidow.git /opt/Whitewidow
+       cd /opt/Whitewidow/
+       bundle install
+  else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}	
+######## Install Unicorn
+function installunicorn {
+if [ ! -f /opt/BypassAV/unicorn-master/unicorn.py ]; then
+	echo -e "\e[1;31mThis option will install Unicorn!\e[0m"
+	echo -e "\e[1;31mUnicorn is a simple tool for using a PowerShell downgrade attack and inject shellcode straight into memory.\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╦ ╦┌┐┌┬┌─┐┌─┐┬─┐┌┐┌  
+║ ║│││││  │ │├┬┘│││  
+╚═╝┘└┘┴└─┘└─┘┴└─┘└┘  
+				\033[m"
+				sleep 2
+				git clone https://github.com/trustedsec/unicorn.git /opt/BypassAV/unicorn-master
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] Unicorn already installed !\e[0m"
+	fi
+}
+
+#######  Install Metagoofil
+function installmetagoofil {
+	echo -e "\e[1;31mThis option will install Metagoofil!\e[0m"
+	echo -e "\e[1;31mWebsite infromation gathering\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╔╦╗┌─┐┌┬┐┌─┐┌─┐┌─┐┌─┐┌─┐┬┬  
+║║║├┤  │ ├─┤│ ┬│ ││ │├┤ ││  
+╩ ╩└─┘ ┴ ┴ ┴└─┘└─┘└─┘└  ┴┴─┘ 
+				\033[m"
+				sleep 2
+				apt-get install metagoofil
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi	
+}
+#######  Install XSSER
+function installxsser {
+	echo -e "\e[1;31mThis option will install XSSER!\e[0m"
+	echo -e "\e[1;32mFind vulnerable website\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+  if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+ __  __     ______     ______     ______     ______    
+/\_\_\_\   /\  ___\   /\  ___\   /\  ___\   /\  == \   
+\/_/\_\/_  \ \___  \  \ \___  \  \ \  __\   \ \  __<   
+  /\_\/\_\  \/\_____\  \/\_____\  \ \_____\  \ \_\ \_\ 
+  \/_/\/_/   \/_____/   \/_____/   \/_____/   \/_/ /_/ 
+                                                       
+\033[m"
+				sleep 2
+                git clone https://github.com/epsylon/xsser /opt/XSSER/
+                cd /opt/XSSER/
+                chmod +x setup.py
+                python setup.py install
+            else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi	
+}
+######## Install pyobfuscate
+function installpyobfuscate {
+if [ ! -f /opt/BypassAV/pyobfuscate-master/pyobfuscate.py ]; then
+	echo -e "\e[1;31mThis option will install pyobfuscate!\e[0m"
+	echo -e "\e[1;31mA Pyobfuscate fork made specifically to randomize and obfuscate python based payloads\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+╔═╗┬ ┬┌─┐┌┐ ┌─┐┬ ┬┌─┐┌─┐┌─┐┌┬┐┌─┐
+╠═╝└┬┘│ │├┴┐├┤ │ │└─┐│  ├─┤ │ ├┤ 
+╩   ┴ └─┘└─┘└  └─┘└─┘└─┘┴ ┴ ┴ └─┘
+				\033[m"
+				sleep 2
+				git clone https://github.com/byt3bl33d3r/pyobfuscate.git /opt/BypassAV/pyobfuscate-master/
+				cd /opt/BypassAV/pyobfuscate-master/
+				python setup.py install
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+	else
+		echo -e "\e[32m[-] pyobfuscate already installed !\e[0m"
+	fi
+}
+
+######## Install commix
+function installcommix {
+	echo -e "\e[1;31mThis option will install commix!\e[0m"
+	echo -e "\e[1;31mAutomated All-in-One OS Command Injection and Exploitation Tool\e[0m"
+	echo -e ""
+	echo -e "Do you want to install it ? (Y/N)"
+			read install
+			if [[ $install = Y || $install = y ]] ; then	
+				echo -e "\033[31m
+._______ ._______  ._____.___ ._____.___ .___  ____   ____
+:_.  ___\: .___  \ :         |:         |: __| \   \_/   /
+|  : |/\ | :   |  ||   \  /  ||   \  /  || : |  \___ ___/ 
+|    /  \|     :  ||   |\/   ||   |\/   ||   |  /   _   \ 
+|. _____/ \_. ___/ |___| |   ||___| |   ||   | /___/ \___|
+ :/         :/           |___|      |___||___|            
+ :          :                                             
+     
+				\033[m"
+				sleep 2
+				rm -rf /opt/exploitation/WebApp/commix-master/
+				git clone https://github.com/stasinopoulos/commix.git /opt/exploitation/WebApp/commix-master/
+			else
+				echo -e "\e[32m[-] Ok,maybe later !\e[0m"
+			fi
+}
 
 ######### Install Hacking Tools
 function hackingtools {
@@ -1108,11 +1526,10 @@ echo -e "
   _|  |  |  |_           |____| \____/ \____/|____/____  >
  |____|  |____|                                        \/ 
 
-
 \033[36m
 \033[31m\033[m"
 
-select menusel in   "Masscan" "Morpheus" "bettercap" "seclist" "Fluxion" "Mitmf" "Backdoor-Factory" "Wig" "Spade" "Nettool" "Thad0ctor" "Install All" "Back to Main"; do
+select menusel in   "Masscan" "Morpheus" "bettercap" "Commix" "seclist" "Fluxion" "Mitmf" "Backdoor-Factory" "Wig" "Spade" "Nettool" "Thad0ctor" "Hackpack" "Atscan" "OpenDoor" "Whitewidow" "Unicorn" "Metagofil" "XSSER" "Pyobfuscate" "Install All" "Back to Main"; do
 case $menusel in 
 
  "Masscan")
@@ -1170,6 +1587,51 @@ case $menusel in
        pause
        hackingtools ;;
 
+ "Hackpack")
+       installhackpack
+       pause      
+       hackingtools ;;
+  
+  "Atscan")
+       installatscan
+       pause
+       hackingtools ;;
+
+  "OpenDoor")
+      installopendoor
+      pause
+      hackingtools ;;
+   
+  "Whitewidow")
+      installwhitewidow
+      pause
+      hackingtools ;;
+
+  "Unicorn")
+      installunicorn
+      pause
+      hackingtools ;;
+
+  "Metagofil")
+      installmetagoofil
+      pause
+      hackingtools ;;
+ 
+  "XSSER")
+      installxsser
+      pause
+      hackingtools ;;
+  
+  "Pyobfuscate")
+     installpyobfuscate
+     pause
+     hackingtools ;;
+
+   "Commix")
+     installcommix
+     pause
+     hackingtools ;;
+
  "Install All")
     installmasscan
     installmorpheus
@@ -1182,11 +1644,22 @@ case $menusel in
 	installspade
 	installnettool
 	installthad0ctor
-	echo -e "\e[32m[-] Done Installing hackingtools\e[0m"
+	installhackpack
+	installatscan
+	installopendoor
+	installwhitewidow
+	installmetagoofil
+	installxsser
+	installpyobfuscate
+    installcommix
+	echo -e "\e[32m[-] 
+╔╦╗┌─┐┌┐┌┌─┐  ╦┌┐┌┌─┐┌┬┐┌─┐┬  ┬  ┬┌┐┌┌─┐  ┬ ┬┌─┐┌─┐┬┌─┬┌┐┌┌─┐┌┬┐┌─┐┌─┐┬  ┌─┐
+ ║║│ ││││├┤   ║│││└─┐ │ ├─┤│  │  │││││ ┬  ├─┤├─┤│  ├┴┐│││││ ┬ │ │ ││ ││  └─┐
+═╩╝└─┘┘└┘└─┘  ╩┘└┘└─┘ ┴ ┴ ┴┴─┘┴─┘┴┘└┘└─┘  ┴ ┴┴ ┴└─┘┴ ┴┴┘└┘└─┘ ┴ └─┘└─┘┴─┘└─┘
+	\e[0m"
 		pause
 		extras ;;
 		
-
 	"Back to Main")
 		clear
 		mainmenu ;;
@@ -1239,17 +1712,22 @@ echo -e "
 ...........Shadow.<|>.Stream............
 \033[m                                        
           Script by Moonlight
-            Version : 0.0.7 \033[32m$version\033[m
+            Version : 0.0.9 \033[32m$version\033[m
 \033[32m\033[m"
 
-select menusel in "Update Kali" "Desktop Manager" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
+select menusel in "Update Kali" "Desktop Manager" "Update Tools" "Software and System Tools" "Install Hacking Tools" "Check Gh4st-Update" "EXIT PROGRAM"; do
 case $menusel in
-	"Update Kali")
+	
+    "Update Kali")
 		updatekali
 		clear ;;
 	
 	"Desktop Manager")
         Desktopmanager
+        clear ;;
+
+    "Update Tools")
+        updatetools
         clear ;;
 
 	"Software and System Tools")
@@ -1259,6 +1737,7 @@ case $menusel in
 	"Install Hacking Tools")
 		hackingtools 
 		clear ;;	
+
 	"Check Gh4st-Update")
 		firefox https://github.com/MoonlightMP/Gh4ster
 		pause
